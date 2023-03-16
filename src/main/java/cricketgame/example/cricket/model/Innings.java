@@ -4,6 +4,8 @@ import cricketgame.example.cricket.services.MatchSer;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,7 +18,12 @@ public class Innings {
     private long runs;
     private long wickets;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Overs> overs = new ArrayList<>();
 
+    public void addOvers (Overs over){
+        overs.add(over);
+    }
 
 
 

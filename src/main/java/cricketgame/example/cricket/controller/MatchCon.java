@@ -2,17 +2,17 @@ package cricketgame.example.cricket.controller;
 
 
 import cricketgame.example.cricket.model.Match;
+import cricketgame.example.cricket.model.Players;
 import cricketgame.example.cricket.model.Team;
 import cricketgame.example.cricket.repository.MatchRepo;
 import cricketgame.example.cricket.services.MatchSer;
 import cricketgame.example.cricket.services.TeamSer;
 import cricketgame.example.cricket.services.MatchSer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @RestController
@@ -26,10 +26,10 @@ public class MatchCon {
     MatchRepo matchRepo;
 
     @PostMapping()
-    public Match startmatch(@RequestBody Teams teams)
+    public Match startmatch(@RequestBody Teams teams, @RequestParam String overs)
     {
-
-        return matchSer.start(teams.team1(),teams.team2());
+        int o = Integer.parseInt(overs);
+        return matchSer.start(teams.team1(),teams.team2(), o);
     }
 
     private static final class Teams {
@@ -57,5 +57,18 @@ public class MatchCon {
                     "team2=" + team2 + ']';
         }
     }
-
+    @GetMapping()
+    public List<Match> findMatches(){
+        return matchSer.findMatches();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Match>
+    findMatchById(@PathVariable(value="id")long id){
+        Match match= matchSer.findMatchById(id);
+        if(match!=null){
+            return ResponseEntity.ok().body(match);
+        } else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

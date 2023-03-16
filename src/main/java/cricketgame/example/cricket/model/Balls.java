@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Entity
 public class Balls {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long ballid;
     private long ballno;
     private long run;
     private int wicket;
@@ -21,6 +21,7 @@ public class Balls {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Overs overs_id;
+
 
 
 }

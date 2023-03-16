@@ -3,6 +3,7 @@ package cricketgame.example.cricket.services;
 import cricketgame.example.cricket.model.Players;
 import cricketgame.example.cricket.repository.MatchRepo;
 import cricketgame.example.cricket.repository.Playersrepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

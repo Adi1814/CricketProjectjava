@@ -9,8 +9,7 @@ import javax.persistence.*;
 @Entity
 public class Players {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     String playerName;
     boolean batsman;

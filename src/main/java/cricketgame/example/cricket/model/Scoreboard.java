@@ -13,17 +13,13 @@ public class Scoreboard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private long id;
 //    @ElementCollection
 //    private ArrayList<ArrayList<Character>> scoreboard;
 
 
-    int runs;
-    int wickets;
-
-    @OneToOne
-   private Overs over;
-
+    int runs = 0;
+    int wickets = 0;
 
 
     @OneToOne

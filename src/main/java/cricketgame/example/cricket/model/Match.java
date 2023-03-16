@@ -14,10 +14,19 @@ public class Match {
     @Column(name = "id", nullable = false)
     private long id;
 
-   @OneToOne(cascade = CascadeType.ALL)
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL)
    private Team team1;
    @OneToOne(cascade = CascadeType.ALL)
    private Team team2;
+
 
     private Long batting;
 
@@ -26,6 +35,8 @@ public class Match {
     public String getResult() {
         return result;
     }
+
+
 
     public void setResult(String result) {
         this.result = result;
