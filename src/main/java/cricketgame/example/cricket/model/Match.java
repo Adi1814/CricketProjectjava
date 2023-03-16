@@ -1,17 +1,12 @@
 package cricketgame.example.cricket.model;
-
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
-
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.List;
 
-@Data
-@Entity
+@Document(collection = "Match")
 public class Match {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private long id;
 
     public long getId() {
@@ -22,9 +17,9 @@ public class Match {
         this.id = id;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
+
    private Team team1;
-   @OneToOne(cascade = CascadeType.ALL)
+
    private Team team2;
 
 
@@ -42,15 +37,47 @@ public class Match {
         this.result = result;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+
     private List<Scoreboard> scoreboard;
 
-    @OneToOne(cascade = CascadeType.ALL)
+
     private Innings innings1;
-    @OneToOne(cascade = CascadeType.ALL)
+
     private Innings innings2;
 
-    public Innings getInnings1(Innings innings1) {
+    public Team getTeam1() {
+        return team1;
+    }
+
+    public void setTeam1(Team team1) {
+        this.team1 = team1;
+    }
+
+    public Team getTeam2() {
+        return team2;
+    }
+
+    public void setTeam2(Team team2) {
+        this.team2 = team2;
+    }
+
+    public Long getBatting() {
+        return batting;
+    }
+
+    public void setBatting(Long batting) {
+        this.batting = batting;
+    }
+
+    public List<Scoreboard> getScoreboard() {
+        return scoreboard;
+    }
+
+    public void setScoreboard(List<Scoreboard> scoreboard) {
+        this.scoreboard = scoreboard;
+    }
+
+    public Innings getInnings1() {
         return innings1;
     }
 
@@ -58,15 +85,13 @@ public class Match {
         this.innings1 = innings1;
     }
 
-    public Innings getInnings2(Innings innings2) {
+    public Innings getInnings2() {
         return innings2;
     }
 
     public void setInnings2(Innings innings2) {
         this.innings2 = innings2;
     }
-
-    public Match(){}
 
     @Override
     public String toString() {
@@ -75,10 +100,10 @@ public class Match {
                 ", team1=" + team1 +
                 ", team2=" + team2 +
                 ", batting=" + batting +
-                ", scoreboard_id=" + scoreboard +
+                ", result='" + result + '\'' +
+                ", scoreboard=" + scoreboard +
                 ", innings1=" + innings1 +
                 ", innings2=" + innings2 +
-                ", result=" + result +
                 '}';
     }
 }

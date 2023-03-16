@@ -1,23 +1,21 @@
 package cricketgame.example.cricket.model;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.Data;
-import lombok.Generated;
-import org.hibernate.engine.internal.Cascade;
-
-import javax.persistence.*;
 import java.util.List;
-@Entity
+@Document(collection = "Team")
 public class Team {
+
+    @Transient
+    public static final String SEQ_NAME="user_sequence";
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private long id ;
     private String team;
 
     private String Coach_name;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "team_id")
     private List<Players> players;
 
     public Long getId() {
@@ -44,7 +42,7 @@ public class Team {
         Coach_name = coach_name;
     }
 
-    @JsonManagedReference
+
     public List<Players> getPlayers() {
         return players;
     }
@@ -52,12 +50,18 @@ public class Team {
     public void setPlayers(List<Players> player) {
 
         this.players = player;
-        for(Players p : player)
-        {
-            p.setTeam_id(this);
-        }
+
     }
 
-//public int getPlayingTeamId() {
+//    @Override
+//    public String toString() {
+//        return "Team{" +
+//                "id=" + id +
+//                ", team='" + team + '\'' +
+//                ", Coach_name='" + Coach_name + '\'' +
+//                ", players=" + players +
+//                '}';
+//    }
+    //public int getPlayingTeamId() {
     //}
 }

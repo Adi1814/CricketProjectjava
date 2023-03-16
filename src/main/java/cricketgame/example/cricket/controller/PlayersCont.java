@@ -1,5 +1,4 @@
 package cricketgame.example.cricket.controller;
-
 import cricketgame.example.cricket.model.Players;
 import cricketgame.example.cricket.repository.Playersrepo;
 import cricketgame.example.cricket.services.PlayerSer;
@@ -35,5 +34,13 @@ public class PlayersCont {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public Playersrepo getPlayersrepo() {
+        return playersrepo;
+    }
+
+    public void setPlayersrepo(Playersrepo playersrepo) {
+        this.playersrepo = playersrepo;
     }
 }

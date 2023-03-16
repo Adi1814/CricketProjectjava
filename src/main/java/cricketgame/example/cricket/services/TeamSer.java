@@ -25,7 +25,8 @@ public class TeamSer {
         return this.teamRepo.findById(id).orElse(null);
     }
 
-//    public Team AddTeams(Team team){
-//        return this.teamRepo.save(team);
-//    }
+    public Team save(Team team) {
+
+        return this.teamRepo.save(team);
+    }
 }

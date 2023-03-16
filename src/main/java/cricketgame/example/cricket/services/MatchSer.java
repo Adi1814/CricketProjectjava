@@ -1,6 +1,4 @@
 package cricketgame.example.cricket.services;
-
-
 import cricketgame.example.cricket.model.*;
 import cricketgame.example.cricket.repository.MatchRepo;
 import cricketgame.example.cricket.repository.TeamRepo;
@@ -22,15 +20,8 @@ public class MatchSer {
     private Team t1, t2;
     private long r1;
     private long r2;
-    //    private int flagbt; //for batsman batting
-//    private int flagbl; //for bowler bowling
-    private int ov = 0;//to set overs
 
-    // RequiredArgsConstructors
-//    public MatchSer(MatchRepo matchRepo, TeamRepo teamRepo){
-//        this.matchRepo=matchRepo;
-//        this.teamRepo=teamRepo;
-//    }
+    private int ov = 0;//to set overs
     public List<Match> findMatches() {
         return this.matchRepo.findAll();
     }
@@ -43,9 +34,15 @@ public class MatchSer {
         Random r = new Random();
         int toss = r.nextInt(2);
         if (toss == 1) {
-            match.setBatting(match.getTeam1().getId());
+            System.out.println(match.getTeam1());
+//            match.setBatting(match.getTeam1().getId());
+//            System.out.println(t1);
+//            match.setBatting(t1.getId());
         } else {
             match.setBatting(match.getTeam2().getId());
+//            System.out.println(match.getTeam1());
+//            System.out.println(t2);
+//            match.setBatting(t2.getId());
         }
         return (match);
     }
@@ -54,6 +51,8 @@ public class MatchSer {
         ov = o;
         t1 = teamRepo.getReferenceById(team1);
         t2 = teamRepo.getReferenceById(team2);
+        System.out.println("Team1 =>"+t1);
+        System.out.println(("Team2 =>"+t2));
 //        return null;
         Match match = new Match();
         match.setTeam1(t1);
@@ -100,14 +99,6 @@ public class MatchSer {
         Innings in1 = new Innings();
         in1 = inningsSimulator(true, in1);
         r1 = in1.getRuns();
-
-        //Pair<Integer, Integer> rw1 = inningssimulator(true);
-        //r1 = rw1.getFirst();
-        //int w1 = rw1.getSecond();
-        //in1.setWickets(w1);
-        //in1.setRuns(r1);
-        //in1.setOvers(new ArrayList<Overs>());
-        //in1.setInnings_no(1);
         match.setInnings1(in1);
         return match;
     }
@@ -117,24 +108,11 @@ public class MatchSer {
         Innings in2 = new Innings();
         in2 = inningsSimulator(false, in2);
         r2 = in2.getRuns();
-//        Pair<Integer, Integer> rw2 = inningssimulator(false);
-//        r2 = rw2.getFirst();
-//        int w2 = rw2.getSecond();
-//        in2.setWickets(w2);
-//        in2.setRuns(r2);
-//        in2.setInnings_no(2);
         match.setInnings2(in2);
-        System.out.println(match);
         return match;
 
     }
-//    public Match scoreboard(Match match)
-//    {
-//        Scoreboard sc = new Scoreboard();
-//
-//
-//
-//    }
+
     private Innings inningsSimulator(boolean isInnings1, Innings innings) {
         if (isInnings1) {
             innings.setInnings_no(1);
@@ -191,13 +169,13 @@ public class MatchSer {
             prevWicket = tw;
             if (isInnings1) {
                 int wkts = this.temp1.get(k).getWickets() + overWickets;
-                System.out.println("inning 1 => " + wkts);
+
                 this.temp1.get(k).setWickets(wkts);
             } else {
                 int wkts = this.temp.get(k).getWickets() + overWickets;
-                System.out.println("Inniing 2 => " + wkts);
+
                 this.temp.get(k).setWickets(wkts);
-                System.out.println(wkts);
+
             }
             k = (k + 1) % 10;
             overs.setBalls(bs);
@@ -208,7 +186,6 @@ public class MatchSer {
                 break;
             }
         }
-        System.out.println(tw);
         innings.setWickets(tw);
         innings.setOvers(o);
         innings.setRuns(sum);

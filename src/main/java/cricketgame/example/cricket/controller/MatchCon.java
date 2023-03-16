@@ -2,18 +2,13 @@ package cricketgame.example.cricket.controller;
 
 
 import cricketgame.example.cricket.model.Match;
-import cricketgame.example.cricket.model.Players;
-import cricketgame.example.cricket.model.Team;
 import cricketgame.example.cricket.repository.MatchRepo;
-import cricketgame.example.cricket.services.MatchSer;
-import cricketgame.example.cricket.services.TeamSer;
 import cricketgame.example.cricket.services.MatchSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/match")
@@ -28,7 +23,9 @@ public class MatchCon {
     @PostMapping()
     public Match startmatch(@RequestBody Teams teams, @RequestParam String overs)
     {
+        System.out.println("Teams => "+teams);
         int o = Integer.parseInt(overs);
+        System.out.println("Teams1 =>"+teams.team1());
         return matchSer.start(teams.team1(),teams.team2(), o);
     }
 

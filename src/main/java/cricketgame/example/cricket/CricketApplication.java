@@ -10,3 +10,11 @@ public class CricketApplication {
 		SpringApplication.run(CricketApplication.class, args);
 	}
 }
+//@SpringBootApplication
+//public class SpringMongoConnectionViaPropertiesApp {
+//
+//	public static void main(String... args) {
+//		SpringApplication.run(SpringMongoConnectionViaPropertiesApp.class, args);
+//	}
+//}
+//Copy

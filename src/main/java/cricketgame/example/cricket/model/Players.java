@@ -1,23 +1,16 @@
 package cricketgame.example.cricket.model;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.Data;
-
-import javax.persistence.*;
-
-
-@Entity
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document(collection = "Players")
 public class Players {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     String playerName;
     boolean batsman;
     boolean bowler;
 
-   @ManyToOne(cascade = CascadeType.ALL)
-   @JoinColumn(columnDefinition = "team_id")
-   private Team team_id;
+
 
     public Long getId() {
         return id;
@@ -50,12 +43,17 @@ public class Players {
     public void setBowler(boolean bowler) {
         this.bowler = bowler;
     }
-    @JsonBackReference
-    public Team getTeam_id() {
-        return team_id;
-    }
 
-    public void setTeam_id(Team team_id) {
-        this.team_id = team_id;
-    }
+
+
+//    @Override
+//    public String toString() {
+//        return "Players{" +
+//                "id=" + id +
+//                ", playerName='" + playerName + '\'' +
+//                ", batsman=" + batsman +
+//                ", bowler=" + bowler +
+//                ", team_id=" + team_id +
+//                '}';
+//    }
 }

@@ -1,17 +1,14 @@
 package cricketgame.example.cricket.controller;
-
-
 import cricketgame.example.cricket.model.Team;
-import cricketgame.example.cricket.repository.TeamRepo;
+import cricketgame.example.cricket.services.SequenceGeneratorService;
 import cricketgame.example.cricket.services.TeamSer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
+import static cricketgame.example.cricket.model.Team.SEQ_NAME;
 
 @RestController
 @RequestMapping("/teams")
@@ -19,8 +16,9 @@ public class TeamCon {
 
     @Autowired
     TeamSer teamSer;
+
     @Autowired
-    private TeamRepo teamRepo;
+    private SequenceGeneratorService sequenceGeneratorService;
 
     @GetMapping
     public List<Team> findallteams(){
@@ -38,7 +36,9 @@ public class TeamCon {
      }
      @PostMapping
      public Team saveTeam(@RequestBody Team team){
-        System.out.println(team.getPlayers().get(0));
-        return teamRepo.save(team);
+         System.out.println(sequenceGeneratorService.getSequenceNumber(Team.SEQ_NAME));
+         team.setId((long) sequenceGeneratorService.getSequenceNumber(Team.SEQ_NAME));
+        return this.teamSer.save(team);
      }
+
 }

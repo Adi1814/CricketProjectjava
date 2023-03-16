@@ -1,31 +1,55 @@
 package cricketgame.example.cricket.model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-
-@Entity
-@Data
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+@Document(collection = "Scoreboard")
 public class Scoreboard {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private long id;
-//    @ElementCollection
-//    private ArrayList<ArrayList<Character>> scoreboard;
-
-
     int runs = 0;
     int wickets = 0;
-
-
-    @OneToOne
-    @JoinColumn
     private Players players;
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getRuns() {
+        return runs;
+    }
+
+    public void setRuns(int runs) {
+        this.runs = runs;
+    }
+
+    public int getWickets() {
+        return wickets;
+    }
+
+    public void setWickets(int wickets) {
+        this.wickets = wickets;
+    }
+
+    public Players getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Players players) {
+        this.players = players;
+    }
+
+    @Override
+    public String toString() {
+        return "Scoreboard{" +
+                "id=" + id +
+                ", runs=" + runs +
+                ", wickets=" + wickets +
+                ", players=" + players +
+                '}';
+    }
 
 }
